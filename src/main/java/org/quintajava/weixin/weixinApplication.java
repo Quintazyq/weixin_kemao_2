@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class 微信项目Application {
+public class weixinApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(微信项目Application.class, args);
+		SpringApplication.run(weixinApplication.class, args);
 	}
 
 }
