@@ -24,11 +24,18 @@ public class MessageConvertHelper {
 		typeMap.put("link", TextInMessage.class);
 		typeMap.put("shortvideo", TextInMessage.class);
 	}
-	public static <T extends InMessage> T convert(String xml) {
+	
+	public static Class<? extends InMessage> getClass(String xml){
 		String type=xml.substring(xml.indexOf("<MsgType><![CDATA[")+18);
 		type=type.substring(0,type.indexOf("]"));
 		
 		Class<? extends InMessage> c=typeMap.get(type);
+		return c;
+	}
+	
+	
+	public static <T extends InMessage> T convert(String xml) {
+		Class<? extends InMessage> c=getClass(xml);
 		if(c==null) {
 			return null;
 		}
