@@ -42,7 +42,10 @@ public class MessageReceiverController<InMessage> {
 				
 				@SuppressWarnings("unchecked")
 				InMessage inMessage = (InMessage) MessageConvertHelper.convert(xml);
-				
+				if(inMessage==null) {
+					LOG.error("消息无法转换！原文:\n{}\n",xml);
+					return "success";
+				}
 				LOG.debug("转换后的消息对象\n{}\n",inMessage);
 	
 				
