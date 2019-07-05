@@ -1,5 +1,6 @@
 package org.quintajava.weixin.controller;
 
+import org.quintajava.weixin.service.MessageConvertHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/zhouyingqi/weixin/receiver")
-public class MessageReceiverController {
+public class MessageReceiverController<InMessage> {
 	private static final Logger LOG=LoggerFactory.getLogger(MessageReceiverController.class);
 
 	
@@ -31,7 +32,21 @@ public class MessageReceiverController {
 			@RequestParam String xml){
 				LOG.trace("收到的消息原文：\n{}\n----------------------------",xml);
 
-	return "success";
+				
+//				String type=xml.substring(xml.indexOf("<MsgType><![CDATA[")+18);
+//				type=type.substring(0,type.indexOf("]"));
+				
+//				if(type.equals("text")) {
+//					InMessage x = new TextInMessage();
+//				}else
+				
+				@SuppressWarnings("unchecked")
+				InMessage inMessage = (InMessage) MessageConvertHelper.convert(xml);
+				
+				LOG.debug("转换后的消息对象\n{}\n",inMessage);
+	
+				
+				return "success";
 
 	}
 }
